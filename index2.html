@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lazos Eternos - Invitación</title>
+  <style>
+        body {
+          margin: 0;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-image:
+            url('https://www.transparenttextures.com/patterns/pink-paper.png'),
+            linear-gradient(to bottom right,  #f7a7c3, #c57c0f);
+          background-blend-mode: multiply;
+          background-repeat: repeat;
+          background-size: cover;
+          position: relative;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 2rem;
+          animation: fadeIn 2s ease-in-out;
+          text-align: center;
+        }
+      
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #733ca7, #3b72a8);
+            background-clip: text;              
+            -webkit-background-clip: text;   
+            -webkit-text-fill-color: transparent;
+            color: transparent;   
+            font-weight: bold;
+          }
+          
+          
+      
+
+    p {
+      font-size: 1.2rem;
+      color: #f8bbd0;
+      margin-bottom: 2rem;
+      max-width: 700px;
+    }
+
+    video {
+      margin: 2rem 0;
+      width: 90%;
+      max-width: 560px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+    }
+
+    button {
+      padding: 1rem 2rem;
+      background-color: #d81b60;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-top: 2rem;
+    }
+
+    button:hover {
+      background-color: #d36d0e;
+      transform: scale(1.05);
+    }
+
+    #contador {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      color: #000000;
+    }
+
+    .emoji-flor {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.6;
+      animation: flotar 6s infinite ease-in-out alternate;
+    }
+
+    .emoji1 { top: 30px; left: 20px; transform: rotate(10deg); }
+    .emoji2 { top: 100px; right: 40px; transform: rotate(-10deg); }
+    .emoji3 { bottom: 60px; left: 50px; transform: rotate(15deg); }
+    .emoji4 { bottom: 100px; right: 60px; transform: rotate(-15deg); }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes flotar {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-10px) rotate(5deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="emoji-flor emoji1">💐</div>
+  <div class="emoji-flor emoji2">💐</div>
+  <div class="emoji-flor emoji3">💐</div>
+  <div class="emoji-flor emoji4">💐</div>
+
+  <h1>Lazos Eternos</h1>
+  <p>Será una tarde de pasar tiempo en familia, celebrando a mamá con alegría, amor y muchos abrazos. Porque ellas merecen lo mejor. 💐</p>
+
+  <video controls>
+    <source src="madre.mp4" type="video/mp4">
+    Tu navegador no soporta la reproducción de video.
+  </video>
+
+  <div id="contador"></div>
+
+  <button onclick="confirmarAsistencia()">Confirmar Asistencia</button>
+
+  <script>
+    function confirmarAsistencia() {
+      window.open("https://wa.me/50249867089?text=Confirmo%20mi%20asistencia%20a%20la%20reunión%20del%20Día%20de%20la%20Madre", "_blank");
+    }
+
+    const fechaEvento = new Date("2025-05-10T15:00:00").getTime();
+
+    const cuentaAtras = setInterval(() => {
+      const ahora = new Date().getTime();
+      const tiempoRestante = fechaEvento - ahora;
+
+      const dias = Math.floor(tiempoRestante / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((tiempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((tiempoRestante % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((tiempoRestante % (1000 * 60)) / 1000);
+      
+      document.getElementById("contador").innerHTML =
+        `Faltan ${dias} días, ${horas} horas, ${minutos} minutos y ${segundos} segundos`;
+
+      if (tiempoRestante < 0) {
+        clearInterval(cuentaAtras);
+        document.getElementById("contador").innerHTML = "¡Ya es el día!";
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
