@@ -5,53 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lazos Eternos - Invitación</title>
   <style>
-        body {
-          margin: 0;
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          background-image:
-            url('https://www.transparenttextures.com/patterns/pink-paper.png'),
-            linear-gradient(to bottom right,  #f7a7c3, #c57c0f);
-          background-blend-mode: multiply;
-          background-repeat: repeat;
-          background-size: cover;
-          position: relative;
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          padding: 2rem;
-          animation: fadeIn 2s ease-in-out;
-          text-align: center;
-        }
-      
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image:
+        url('https://www.transparenttextures.com/patterns/pink-paper.png'),
+        linear-gradient(to bottom right,  #f7a7c3, #c57c0f);
+      background-blend-mode: multiply;
+      background-repeat: repeat;
+      background-size: cover;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      animation: fadeIn 2s ease-in-out;
+      text-align: center;
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(to right, #733ca7, #3b72a8);
-            background-clip: text;              
-            -webkit-background-clip: text;   
-            -webkit-text-fill-color: transparent;
-            color: transparent;   
-            font-weight: bold;
-          }
-          
-          
-      
+    h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(to right, #733ca7, #3b72a8);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      font-weight: bold;
+    }
 
     p {
       font-size: 1.2rem;
-      color: #f8bbd0;
+      color: #4c00ff;
       margin-bottom: 2rem;
       max-width: 700px;
     }
 
-    video {
-      margin: 2rem 0;
+    img.foto-principal {
       width: 90%;
-      max-width: 560px;
+      max-width: 700px;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      margin: 2rem 0;
+    }
+
+    .botones {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
     }
 
     button {
@@ -63,7 +67,6 @@
       font-size: 1rem;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.3s ease;
-      margin-top: 2rem;
     }
 
     button:hover {
@@ -71,10 +74,53 @@
       transform: scale(1.05);
     }
 
+    video, canvas {
+      margin: 2rem 0;
+      width: 50%;
+      max-width: 500px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+      display: none;
+    }
+
+    .detalles-evento {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 15px;
+      padding: 1.5rem 2rem;
+      margin: 2rem auto;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      color: #4e4e4e;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .detalles-evento h2 {
+      margin-bottom: 1rem;
+      color: #880e4f;
+      font-size: 1.8rem;
+    }
+
+    .detalles-evento ul {
+      list-style-type: none;
+      padding: 0;
+      font-size: 1.1rem;
+    }
+
+    .detalles-evento li {
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+
     #contador {
       font-size: 1.5rem;
       margin-top: 1rem;
       color: #000000;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 1rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      backdrop-filter: blur(3px);
     }
 
     .emoji-flor {
@@ -88,6 +134,96 @@
     .emoji2 { top: 100px; right: 40px; transform: rotate(-10deg); }
     .emoji3 { bottom: 60px; left: 50px; transform: rotate(15deg); }
     .emoji4 { bottom: 100px; right: 60px; transform: rotate(-15deg); }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 500px;
+      text-align: left;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: #880e4f;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .galeria {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+
+    .foto {
+      width: 150px;
+      height: 200px;
+      perspective: 1000px;
+    }
+
+    .foto-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+
+    .foto:hover .foto-inner {
+      transform: rotateY(180deg);
+    }
+
+    .foto-front, .foto-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+    }
+
+    .foto-front img, .foto-back img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .foto-back {
+      transform: rotateY(180deg);
+    }
+
+    h4 {
+      color: #733ca7;
+      font-family: 'Arial', sans-serif;
+      font-size: 25px;
+      font-weight: bold;  
+      text-align: center;
+      margin-bottom: 0;
+    }
 
     @keyframes fadeIn {
       0% { opacity: 0; transform: translateY(20px); }
@@ -109,31 +245,175 @@
   <h1>Lazos Eternos</h1>
   <p>Será una tarde de pasar tiempo en familia, celebrando a mamá con alegría, amor y muchos abrazos. Porque ellas merecen lo mejor. 💐</p>
 
-  <video controls>
-    <source src="madre.mp4" type="video/mp4">
-    Tu navegador no soporta la reproducción de video.
-  </video>
+  <img src="fotom.jpg" alt="Foto principal" class="foto-principal">
+
+  <div class="detalles-evento">
+    <h2>🌸 Detalles del Evento</h2>
+    <ul>
+      <li><strong>🗓 Fecha:</strong> Sábado 10 de mayo, 3:00 PM</li>
+      <li><strong>📍 Lugar:</strong> San Juan del Obispo</li>
+      <li><strong>🎒 Recomendación:</strong> Llevar ropa cómoda y muchas ganas de abrazar 💞</li>
+    </ul>
+  </div>
 
   <div id="contador"></div>
 
-  <button onclick="confirmarAsistencia()">Confirmar Asistencia</button>
+  <div class="botones">
+    <button onclick="mostrarModal()">💌 Ver Dedicatorias</button>
+  </div>
+
+  <div id="modalDedicatorias" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <h2>Dedicatorias para Mamá 💖</h2>
+      <p>"Gracias por ser mi fuerza, mi guía y mi mayor inspiración."</p>
+      <p>"Tus abrazos curan más que cualquier medicina, mamá."</p>
+      <p>"Tu amor es el regalo más grande que recibimos cada día."</p>
+    </div>
+  </div>
+
+  <div class="galeria">
+    <!-- Fotos con efecto flip -->
+    <div class="foto">
+      <div class="foto-inner">
+        <div class="foto-front"><img src="foto1.jpg" alt="Foto 1"></div>
+        <div class="foto-back"><img src="1.jpg" alt="Foto 1 reverso"></div>
+      </div>
+    </div>
+    <div class="foto">
+      <div class="foto-inner">
+        <div class="foto-front"><img src="foto2.jpg" alt="Foto 2"></div>
+        <div class="foto-back"><img src="2.jpg" alt="Foto 2 reverso"></div>
+      </div>
+    </div>
+    <div class="foto">
+      <div class="foto-inner">
+        <div class="foto-front"><img src="foto3.jpg" alt="Foto 3"></div>
+        <div class="foto-back"><img src="3.jpg" alt="Foto 3 reverso"></div>
+      </div>
+    </div>
+    <div class="foto">
+      <div class="foto-inner">
+        <div class="foto-front"><img src="foto4.jpg" alt="Foto 4"></div>
+        <div class="foto-back"><img src="4.jpg" alt="Foto 4 reverso"></div>
+      </div>
+    </div>
+    <div class="foto">
+      <div class="foto-inner">
+        <div class="foto-front"><img src="foto5.jpg" alt="Foto 5"></div>
+        <div class="foto-back"><img src="5.jpg" alt="Foto 5 reverso"></div>
+      </div>
+    </div>
+    <div class="foto">
+      <div class="foto-inner">
+        <div class="foto-front"><img src="foto6.jpg" alt="Foto 6"></div>
+        <div class="foto-back"><img src="6.jpg" alt="Foto 6 reverso"></div>
+      </div>
+    </div>
+    <div class="foto">
+      <div class="foto-inner">
+        <div class="foto-front"><img src="foto7.jpg" alt="Foto 7"></div>
+        <div class="foto-back"><img src="7.png" alt="Foto 7 reverso"></div>
+      </div>
+    </div>
+  </div>
+  <h4>
+    AYUDANOS A CREAR UN ALBUM TOMANDOTE UNA FOTOGRAFIA
+  </h4>
+  <div class="botones">
+    <button onclick="activarCamara()" id="btnActivar">📷 Activar Cámara</button>
+    <button onclick="capturarFoto()" id="btnCapturar" style="display: none;">📸 Tomar Foto</button>
+    <button onclick="guardarImagen()" id="btnGuardar" style="display: none;">💾 Guardar Foto</button>
+    <button onclick="cerrarPrevisualizacion()" id="btnCerrar" style="display: none;">❌ Cerrar</button>
+  </div>
+
+  <video id="camara" autoplay playsinline></video>
+  <canvas id="captura"></canvas>
+
+  <h5>
+    SUBE TU FOTOGRAFIA ESCANEANDO EL CODIGO QR
+  </h5>
+
+  <button onclick="confirmarAsistencia()">✅ Confirmar Asistencia</button>
 
   <script>
+    let streamActivo = null;
+
+    function activarCamara() {
+      const video = document.getElementById('camara');
+      const btnCapturar = document.getElementById('btnCapturar');
+      const btnActivar = document.getElementById('btnActivar');
+
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          streamActivo = stream;
+          video.srcObject = stream;
+          video.style.display = 'block';
+          btnCapturar.style.display = 'inline-block';
+          btnActivar.style.display = 'none';
+        })
+        .catch(err => {
+          alert("No se pudo acceder a la cámara: " + err);
+        });
+    }
+
+    function capturarFoto() {
+      const video = document.getElementById('camara');
+      const canvas = document.getElementById('captura');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      canvas.style.display = 'block';
+      document.getElementById('btnGuardar').style.display = 'inline-block';
+      document.getElementById('btnCerrar').style.display = 'inline-block';
+
+      if (streamActivo) {
+        streamActivo.getTracks().forEach(track => track.stop());
+        streamActivo = null;
+        video.style.display = 'none';
+        document.getElementById('btnCapturar').style.display = 'none';
+      }
+    } 
+
+    function guardarImagen() {
+      const canvas = document.getElementById('captura');
+      const link = document.createElement('a');
+      link.download = 'foto-recuerdo.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    function cerrarPrevisualizacion() {
+      document.getElementById('captura').style.display = 'none';
+      document.getElementById('btnGuardar').style.display = 'none';
+      document.getElementById('btnCerrar').style.display = 'none';
+      document.getElementById('btnActivar').style.display = 'inline-block';
+    }
+
     function confirmarAsistencia() {
-      window.open("https://wa.me/50249867089?text=Confirmo%20mi%20asistencia%20a%20la%20reunión%20del%20Día%20de%20la%20Madre", "_blank");
+      window.open("https://wa.me/50249867089?text=Confirmo%20mi%20asistencia%20a%20la%20reuni%C3%B3n%20del%20D%C3%ADa%20de%20la%20Madre", "_blank");
+    }
+
+    function mostrarModal() {
+      document.getElementById("modalDedicatorias").style.display = "flex";
+    }
+
+    function cerrarModal() {
+      document.getElementById("modalDedicatorias").style.display = "none";
     }
 
     const fechaEvento = new Date("2025-05-10T15:00:00").getTime();
-
     const cuentaAtras = setInterval(() => {
       const ahora = new Date().getTime();
       const tiempoRestante = fechaEvento - ahora;
-
       const dias = Math.floor(tiempoRestante / (1000 * 60 * 60 * 24));
       const horas = Math.floor((tiempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutos = Math.floor((tiempoRestante % (1000 * 60 * 60)) / (1000 * 60));
       const segundos = Math.floor((tiempoRestante % (1000 * 60)) / 1000);
-      
+
       document.getElementById("contador").innerHTML =
         `Faltan ${dias} días, ${horas} horas, ${minutos} minutos y ${segundos} segundos`;
 
